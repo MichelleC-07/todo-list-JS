@@ -12,13 +12,19 @@
 
 let userInput = prompt("What would you like to do?").toLowerCase()
 
-const todos = ["Clean Toilet", "Meditate", "Read Books"]
+const todos = []
+
+const deletedItems = []
 
 while (userInput !== "quit" && userInput !== "q") {
     if (userInput === "list") {
         console.log("***********************")
-        for (let i = 0; i < todos.length; i++) {
-            console.log(`${i}: ${todos[i]}`)
+        if (todos.length !== 0) {
+            for (let i = 0; i < todos.length; i++) {
+                console.log(`${i}: ${todos[i]}`)
+            }
+        } else {
+            console.log("List is currently empty. Start adding todos.")
         }
         console.log("***********************")
     } else if (userInput === "new") {
@@ -28,12 +34,21 @@ while (userInput !== "quit" && userInput !== "q") {
     } else if (userInput === "delete") {
         const indexToDelete = parseInt(prompt("Enter an index to delete"))
         // another way: !Number.isNan(indexToDelete)
-        if (!indexToDelete === NaN) {
+        if (indexToDelete !== NaN) {
             const deletedTodo = todos.splice(indexToDelete, 1)
-            console.log(`"${deletedTodo} is deleted`)
+            console.log(`${deletedTodo} is deleted`)
+            deletedItems.push(deletedTodo)
         } else {
             console.log("Invalid index")
         }
+
+    } else if (userInput === "show") {
+        console.log("***********************")
+        console.log("Deleted Items/Todos")
+        for (let item of deletedItems) {
+            console.log(item)
+        }
+        console.log("***********************")
 
     }
     userInput = prompt("What would you like to do?").toLocaleLowerCase()
